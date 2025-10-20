@@ -9,29 +9,59 @@
         <a href="/arboles/nuevo" class="btn btn-warning mb-4">Registrar Árbol</a>
 
         <h2 class="text-secondary mb-3">Listado de Árboles</h2>
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Tipo de Flor</th>
-                    <th>Altura Promedio (m)</th>
-                    <th>Dureza Madera</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="arbol : ${arboles}">
-                    <td th:text="${arbol.nombreComun}">Nombre Árbol</td>
-                    <td th:text="${arbol.tipoFlor}">Tipo de Flor</td>
-                    <td th:text="${arbol.durezaMadera}">Dureza Madera</td>
-                    <td th:text="${arbol.alturaPromedio}">Altura Promedio</td>
-                    <td>
-                        <a th:href="@{/arboles/editar/{id}(id=${arbol.idArbol})}" class="btn btn-sm btn-primary">Editar</a>
-                        <a th:href="@{/arboles/eliminar/{id}(id=${arbol.idArbol})}" class="btn btn-sm btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Tipo de Flor</th>
+                        <th>Dureza Madera</th>
+                        <th>Altura Promedio (m)</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="arbol : ${arboles}">
+                        <td class="text-center">
+                            <img th:if="${arbol.rutaImagen != null and !arbol.rutaImagen.isEmpty()}" 
+                                 th:src="${arbol.rutaImagen}" 
+                                 th:alt="${arbol.nombreComun}"
+                                 class="img-thumbnail"
+                                 style="width: 80px; height: 80px; object-fit: cover;"
+                                 onerror="this.src='https://via.placeholder.com/80?text=Sin+Imagen'">
+                            <img th:unless="${arbol.rutaImagen != null and !arbol.rutaImagen.isEmpty()}"
+                                 src="https://via.placeholder.com/80?text=Sin+Imagen"
+                                 alt="Sin imagen"
+                                 class="img-thumbnail"
+                                 style="width: 80px; height: 80px; object-fit: cover;">
+                        </td>
+                        <td th:text="${arbol.nombreComun}">Nombre Árbol</td>
+                        <td th:text="${arbol.tipoFlor}">Tipo de Flor</td>
+                        <td th:text="${arbol.durezaMadera}">Dureza Madera</td>
+                        <td th:text="${arbol.alturaPromedio}">Altura Promedio</td>
+                        <td>
+                            <span th:if="${arbol.estado != null}" 
+                                  th:text="${arbol.estado.nombre}"
+                                  th:class="${arbol.estado.nombre == 'Disponible' ? 'badge bg-success' : 
+                                             arbol.estado.nombre == 'Agotado' ? 'badge bg-danger' : 
+                                             arbol.estado.nombre == 'En crecimiento' ? 'badge bg-warning text-dark' : 
+                                             'badge bg-secondary'}">
+                                Estado
+                            </span>
+                            <span th:unless="${arbol.estado != null}" class="badge bg-secondary">Sin estado</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/arboles/editar/{id}(id=${arbol.idArbol})}" class="btn btn-sm btn-primary">Editar</a>
+                            <a th:href="@{/arboles/eliminar/{id}(id=${arbol.idArbol})}" 
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('¿Estás seguro de eliminar este árbol?')">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

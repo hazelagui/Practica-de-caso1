@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import Practica1.domain.Arbol;
 import Practica1.service.ArbolService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,31 +21,26 @@ public class ArbolController {
     @Autowired
     private ArbolService arbolService;
 
-    // Listar todos los árboles
+    @GetMapping
+    public String listarArboles(Model model) {
+        model.addAttribute("arboles", arbolService.listarArboles());
+        model.addAttribute("title", "Lista de Árboles");
+        model.addAttribute("contenido", "index :: contenido");
+        return "plantilla";
+    }
 
-@GetMapping
-public String listarArboles(Model model) {
-    model.addAttribute("arboles", arbolService.listarArboles());
-    model.addAttribute("title", "Lista de Árboles");
-    model.addAttribute("contenido", "index :: contenido"); // indica que el fragmento de index se cargue en plantilla
-    return "plantilla"; // usa la plantilla principal con estilo
-}
-
-    // Mostrar formulario para crear un nuevo árbol
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevoArbol(Model model) {
         model.addAttribute("arbol", new Arbol());
         return "formulario"; 
     }
 
-    // Guardar nuevo árbol
     @PostMapping("/guardar")
     public String guardarArbol(@ModelAttribute Arbol arbol) {
         arbolService.guardarArbol(arbol);
         return "redirect:/arboles"; 
     }
 
-    // Mostrar formulario para editar un árbol existente
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Integer id, Model model) {
         Optional<Arbol> optionalArbol = arbolService.buscarPorId(id);
@@ -58,13 +52,9 @@ public String listarArboles(Model model) {
         }
     }
 
-    // Eliminar un árbol
     @GetMapping("/eliminar/{id}")
     public String eliminarArbol(@PathVariable Integer id) {
         arbolService.eliminarArbol(id);
         return "redirect:/arboles"; 
     }
 }
-}
-
-

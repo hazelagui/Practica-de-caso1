@@ -29,34 +29,79 @@ public class Arbol {
     @Column(name = "ruta_imagen")
     private String rutaImagen;
 
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
+
     @Column(name = "fecha_creacion", insertable = false, updatable = false)
     private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_modificacion", insertable = false, updatable = false)
     private LocalDateTime fechaModificacion;
 
-    // Constructor vacío
     public Arbol() {}
 
-    // Getters y Setters
-    public Integer getIdArbol() { return idArbol; }
-    public void setIdArbol(Integer idArbol) { this.idArbol = idArbol; }
+    public Integer getIdArbol() {
+        return idArbol;
+    }
 
-    public String getNombreComun() { return nombreComun; }
-    public void setNombreComun(String nombreComun) { this.nombreComun = nombreComun; }
+    public void setIdArbol(Integer idArbol) {
+        this.idArbol = idArbol;
+    }
 
-    public String getTipoFlor() { return tipoFlor; }
-    public void setTipoFlor(String tipoFlor) { this.tipoFlor = tipoFlor; }
+    public String getNombreComun() {
+        return nombreComun;
+    }
 
-    public Integer getDurezaMadera() { return durezaMadera; }
-    public void setDurezaMadera(Integer durezaMadera) { this.durezaMadera = durezaMadera; }
+    public void setNombreComun(String nombreComun) {
+        this.nombreComun = nombreComun;
+    }
 
-    public BigDecimal getAlturaPromedio() { return alturaPromedio; }
-    public void setAlturaPromedio(BigDecimal alturaPromedio) { this.alturaPromedio = alturaPromedio; }
+    public String getTipoFlor() {
+        return tipoFlor;
+    }
 
-    public String getRutaImagen() { return rutaImagen; }
-    public void setRutaImagen(String rutaImagen) { this.rutaImagen = rutaImagen; }
+    public void setTipoFlor(String tipoFlor) {
+        this.tipoFlor = tipoFlor;
+    }
 
-    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
-    public LocalDateTime getFechaModificacion() { return fechaModificacion; }
+    public Integer getDurezaMadera() {
+        return durezaMadera;
+    }
+
+    public void setDurezaMadera(Integer durezaMadera) {
+        this.durezaMadera = durezaMadera;
+    }
+
+    public BigDecimal getAlturaPromedio() {
+        return alturaPromedio;
+    }
+
+    public void setAlturaPromedio(BigDecimal alturaPromedio) {
+        this.alturaPromedio = alturaPromedio;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
+    }
 }
